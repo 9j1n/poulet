@@ -11,8 +11,8 @@ public class Mage extends Hero{
 	public static final float MAX_MANA = 100;
 	private static Set<Weapons> AVAILABLE_WEAPONS = Set.of(Weapons.Staff);
 
-	public Mage(String name, float health, Weapon weapon, int level, float armor, int lives, float experience, float mana) {
-		super(name, health, weapon, AVAILABLE_WEAPONS, level, armor, lives, experience);
+	public Mage(String name, float health, Weapon weapon, int level, float armor, int lives, float experience, float mana, String skinPath) {
+		super(name, health, weapon, AVAILABLE_WEAPONS, level, armor, lives, experience, skinPath);
 		this.mana = mana;
 	}
 
