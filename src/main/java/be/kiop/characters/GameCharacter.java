@@ -48,7 +48,6 @@ public abstract class GameCharacter {
 
 	public void takeDamage(float damage) {
 		
-		
 	}
 	
 	protected void increaseLevel() {

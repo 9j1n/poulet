@@ -16,6 +16,8 @@ public class Map extends JPanel{
 	private int height;
 	private String name;
 	private String imagePath;
+	
+
 	private Image image;
 	private ArrayList<Obstacle> obstacles;
 	
@@ -29,6 +31,14 @@ public class Map extends JPanel{
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Obstacle> getObstacles() {
+		return obstacles;
+	}
+	
+	public void createObstacle(int xPos, int yPos, int xSprite, int ySprite, int width, int height, String imagePath) {
+		obstacles.add(new Obstacle(xPos, yPos, xSprite, ySprite, width, height, imagePath));
 	}
 
 	public Image getImage() {

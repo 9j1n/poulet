@@ -27,6 +27,11 @@ public class Game extends JFrame {
 		map = new Map(640, 640, "src/main/resources/map.png");
 		board = new Board(map, 640, 640);
 		
+		map.createObstacle(0, 0, 0, 0, 640, 10, "src/main/resources/border.png");
+		map.createObstacle(0, 0, 0, 0, 10, 640, "src/main/resources/border.png");
+		map.createObstacle(0, 640, 0, 0, 640, 10, "src/main/resources/border.png");
+		map.createObstacle(640, 0, 0, 0, 10, 640, "src/main/resources/border.png");
+		
 		board.setHero(herc);
 		
 		this.setContentPane(board);
