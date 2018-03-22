@@ -1,7 +1,7 @@
 package be.kiop.weapons;
 
 public abstract class Weapon {
-	private final String name;
+	private String name;
 	
 	private float damage;
 	private final float maxDamage;
@@ -14,9 +14,12 @@ public abstract class Weapon {
 	private float attackSpeed;
 	private final float maxAttackSpeed;
 	
-	Weapon(String name, float damage, float maxDamage, float range, 
-			float minRange, float maxRange, float attackSpeed, float maxAttackSpeed) {
-		this.name = name;
+	private float penetration;
+	public static final float MAX_PENETRATION = 100.0F;
+	
+	protected Weapon(String name, float damage, float maxDamage, float range, 
+			float minRange, float maxRange, float attackSpeed, float maxAttackSpeed, float penetration) {
+		setName(name);
 		this.damage = damage;
 		this.maxDamage = maxDamage;
 		this.range = range;
@@ -24,6 +27,25 @@ public abstract class Weapon {
 		this.maxRange = maxRange;
 		this.attackSpeed = attackSpeed;
 		this.maxAttackSpeed = maxAttackSpeed;
+		this.penetration = penetration;
+	}
+
+	protected Weapon(String name, float damage, float range, float attackSpeed) {
+		setName(name);
+		this.damage = damage;
+		this.maxDamage = damage;
+		this.range = range;
+		this.minRange = range;
+		this.maxRange = range;
+		this.attackSpeed = attackSpeed;
+		this.maxAttackSpeed = attackSpeed;
+		this.penetration = 0;
+	}
+	public void setName(String name) {
+		if(name == null || name.trim().isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		this.name = name;
 	}
 
 	public String getName() {
@@ -53,8 +75,9 @@ public abstract class Weapon {
 			this.damage = 0;
 		} else if (damage > this.maxDamage) {
 			this.damage = this.maxDamage;
+		} else {
+			this.damage = damage;
 		}
-		this.damage = damage;
 	}
 
 	public float getRange() {
@@ -111,11 +134,26 @@ public abstract class Weapon {
 		}
 	}
 
+	public float getPenetration() {
+		return penetration;
+	}
+
+	public void setPenetration(float penetration) {
+		if(penetration < 0) {
+			this.penetration = 0;
+		} else if(penetration > MAX_PENETRATION) {
+			this.penetration = MAX_PENETRATION;
+		} else {
+			this.penetration = penetration;
+		}
+	}
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + name.hashCode();
 		return result;
 	}
 
@@ -128,13 +166,8 @@ public abstract class Weapon {
 		if (!(obj instanceof Weapon))
 			return false;
 		Weapon other = (Weapon) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }

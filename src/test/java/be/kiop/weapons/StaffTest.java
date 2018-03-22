@@ -6,8 +6,8 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SwordTest {
-	private Sword weapon;
+public class StaffTest {
+	private Staff weapon;
 	private static final float WEAPON_DAMAGE = 8;
 	private static final float WEAPON_MAX_DAMAGE = 14;
 	private static final float WEAPON_RANGE = 5;
@@ -16,22 +16,18 @@ public class SwordTest {
 	private static final float WEAPON_ATTACK_SPEED = 2;
 	private static final float WEAPON_MAX_ATTACK_SPEED = 8;
 	private static final float WEAPON_PENETRATION = 30;
-	private static final float WEAPON_CRIT_CHANCE = 50;
-	private static final float WEAPON_MAX_CRIT_CHANCE = 80;
+	private static final float WEAPON_MANA_COST = 10;
 	private static final float MARGIN = 0.1F;
 
 	@Before
 	public void before() {
-		SwordBuilder builder = new SwordBuilder();
-		weapon = builder.withName(Sword.DEFAULT_NAME).withDamage(WEAPON_DAMAGE).withMaxDamage(WEAPON_MAX_DAMAGE)
-				.withRange(WEAPON_RANGE).withMinRange(WEAPON_MIN_RANGE).withMaxRange(WEAPON_MAX_RANGE)
-				.withAttackSpeed(WEAPON_ATTACK_SPEED).withMaxAttackSpeed(WEAPON_MAX_ATTACK_SPEED)
-				.withPenetration(WEAPON_PENETRATION).withCritChance(WEAPON_CRIT_CHANCE).withMaxCritChance(WEAPON_MAX_CRIT_CHANCE).makeSword();
+		weapon = new Staff(Staff.DEFAULT_NAME, WEAPON_DAMAGE, WEAPON_MAX_DAMAGE, WEAPON_RANGE, WEAPON_MIN_RANGE, WEAPON_MAX_RANGE, 
+				WEAPON_ATTACK_SPEED, WEAPON_MAX_ATTACK_SPEED, WEAPON_PENETRATION, WEAPON_MANA_COST);
 	}
 
 	@Test
 	public void getName_allIsWell_swordName() {
-		assert (weapon.getName().equals(Sword.DEFAULT_NAME));
+		assert (weapon.getName().equals(Staff.DEFAULT_NAME));
 	}
 	
 	@Test
@@ -69,45 +65,6 @@ public class SwordTest {
 	}
 
 	@Test
-	public void getCritChance_allIsWell_swordCritChance() {
-		assertEquals(WEAPON_CRIT_CHANCE, weapon.getCritChance(), MARGIN);
-	}
-
-	@Test
-	public void increaseCritChance_allIsWell_swordCritChanceIncreased() {
-		weapon.increaseCritChance(1);
-		assertEquals(WEAPON_CRIT_CHANCE+1, weapon.getCritChance(), MARGIN);
-	}
-
-	@Test
-	public void increaseCritChance_moreThanMaxCritChance_swordMaxCritChance() {
-		weapon.increaseCritChance(WEAPON_MAX_CRIT_CHANCE+1);
-		assertEquals(WEAPON_MAX_CRIT_CHANCE, weapon.getCritChance(), MARGIN);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void increaseCritChance_negativeCritChance_exception() {
-		weapon.increaseCritChance(-1);
-	}
-
-	@Test
-	public void decreaseCritChance_allIsWell_swordCritChanceDecreased() {
-		weapon.decreaseCritChance(WEAPON_CRIT_CHANCE-1);
-		assertEquals(1, weapon.getCritChance(), MARGIN);
-	}
-
-	@Test
-	public void decreaseCritChance_lessThanZeroCritChance_0() {
-		weapon.decreaseCritChance(WEAPON_MAX_CRIT_CHANCE+1);
-		assertEquals(0, weapon.getCritChance(), MARGIN);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void decreaseCritChance_negativeCritChance_exception() {
-		weapon.decreaseCritChance(-1);
-	}
-
-	@Test
 	public void increaseDamage_allIsWell_swordDamageIncreased() {
 		weapon.increaseDamage(1);
 		assertEquals(WEAPON_DAMAGE + 1, weapon.getDamage(), MARGIN);
@@ -115,7 +72,7 @@ public class SwordTest {
 
 	@Test
 	public void increaseDamage_greaterThanMaxDamage_swordMaxDamage() {
-		weapon.increaseDamage(WEAPON_MAX_DAMAGE+1);
+		weapon.increaseDamage(WEAPON_MAX_DAMAGE + 1);
 		assertEquals(WEAPON_MAX_DAMAGE, weapon.getDamage(), MARGIN);
 	}
 
@@ -132,7 +89,7 @@ public class SwordTest {
 
 	@Test
 	public void decreaseDamage_lessThan0_0() {
-		weapon.decreaseDamage(WEAPON_MAX_DAMAGE+1);
+		weapon.decreaseDamage(WEAPON_MAX_DAMAGE + 1);
 		assertEquals(0, weapon.getDamage(), MARGIN);
 	}
 
@@ -166,7 +123,7 @@ public class SwordTest {
 
 	@Test
 	public void decreaseRange_lessThan0_swordMinRange() {
-		weapon.decreaseRange(WEAPON_MAX_RANGE+1);
+		weapon.decreaseRange(WEAPON_MAX_RANGE + 1);
 		assertEquals(WEAPON_MIN_RANGE, weapon.getRange(), MARGIN);
 	}
 
@@ -208,33 +165,15 @@ public class SwordTest {
 	public void decreaseAttackSpeed_negativeRange_exception() {
 		weapon.decreaseAttackSpeed(-1);
 	}
-	
+
 	@Test
-	public void getPenetration_nA_weaponPenetration() {
-		assertEquals(WEAPON_PENETRATION, weapon.getPenetration(), MARGIN);
-	}
-	
-	@Test
-	public void setPenetration_lessThanZero_0() {
-		weapon.setPenetration(-1);
-		assertEquals(0, weapon.getPenetration(),MARGIN);
-	}
-	
-	@Test
-	public void setPenetration_moreThanMaxPen_weaponMaxPenetration() {
-		weapon.setPenetration(Weapon.MAX_PENETRATION+1);
-		assertEquals(Weapon.MAX_PENETRATION, weapon.getPenetration(), MARGIN);
-	}
-	
-	@Test
-	public void setPenetration_validPenetration_weaponPenetrationChanged() {
-		weapon.setPenetration(1);
-		assertEquals(1, weapon.getPenetration(), MARGIN);
+	public void getManaCost_nA_weaponManaCost() {
+		assertEquals(WEAPON_MANA_COST, weapon.getManaCost(), MARGIN);
 	}
 	
 	@Test
 	public void hashCode_sameWeaponName_sameHashCode() {
-		assertEquals(new Sword().hashCode(), weapon.hashCode());
+		assertEquals(new Staff().hashCode(), weapon.hashCode());
 	}
 	
 	@Test
@@ -244,17 +183,6 @@ public class SwordTest {
 	
 	@Test
 	public void equals_sameWeaponName_true() {
-		assert(weapon.equals(new Sword()));
+		assert(weapon.equals(new Staff()));
 	}
-	
-	@SuppressWarnings("unlikely-arg-type")
-	@Test
-	public void equals_differentWeaponType_false() {
-		assertFalse(weapon.equals(new Staff()));
-	}
-	
-	@Test
-	public void equals_differentObjectType_false() {
-		assertFalse(weapon.equals(new Object()));
-	}	
 }
