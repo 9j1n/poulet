@@ -30,11 +30,12 @@ public class WarriorTest {
 	private final static float HERO_ARMOR = 50;
 	private final static float HERO_EXPERIENCE = 200;
 	private final static float HERO_SHIELD = 10;
+	private final static String HERO_SKIN_PATH = "src/main/resources/hero.png";
 	
 	@Before
 	public void before() {
 		sword = new Sword();
-		hero = new Warrior(HERO_NAME, HERO_HEALTH, sword, HERO_LEVEL, HERO_ARMOR, HERO_LIVES, HERO_EXPERIENCE, HERO_SHIELD);
+		hero = new Warrior(HERO_NAME, HERO_HEALTH, sword, HERO_LEVEL, HERO_ARMOR, HERO_LIVES, HERO_EXPERIENCE, HERO_SHIELD, HERO_SKIN_PATH);
 	}
 	
 	@Test
