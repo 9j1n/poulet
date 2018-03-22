@@ -1,6 +1,11 @@
 package be.kiop.characters.heroes;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import be.kiop.characters.GameCharacter;
 import be.kiop.exceptions.OutOfLivesException;
@@ -10,6 +15,9 @@ import be.kiop.weapons.Weapons;
 public abstract class Hero extends GameCharacter{
 	private int lives;
 	private float experience;
+	private Image skin;
+	private String skinPath;
+	
 
 //	public Hero(String name, float health, Weapon weapon) {
 //		super(name, health, weapon);
@@ -23,10 +31,17 @@ public abstract class Hero extends GameCharacter{
 //		this.experience = 0;
 //	}
 
-	public Hero(String name, float health, Weapon weapon, Set<Weapons> availableWeapons, int level, float armor, int lives, float experience) {
+	public Hero(String name, float health, Weapon weapon, Set<Weapons> availableWeapons, int level, float armor, int lives, float experience, String skinPath) {
 		super(name, health, weapon, availableWeapons, level, armor);
 		this.lives = lives;
 		this.experience = experience;
+		this.skinPath = skinPath;
+		
+		try {
+			this.skin = ImageIO.read(new File(this.skinPath));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 //	public Hero(String name, float health, Weapon weapon, Set<Weapons> availableWeapons) {
@@ -34,6 +49,10 @@ public abstract class Hero extends GameCharacter{
 //		this.lives = 3;
 //		this.experience = 0;
 //	}
+	
+	public Image getSkin() {
+		return this.skin;
+	}
 
 	public void decreaseLives() {
 		lives--;
@@ -69,7 +88,7 @@ public abstract class Hero extends GameCharacter{
 			increaseLevel();
 		}
 	}
-	
+
 	private float getRequiredExpForNextLevel() {
 		return this.level*100;
 	}

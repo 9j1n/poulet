@@ -1,6 +1,8 @@
 package be.kiop.weapons;
 
-public abstract class Weapon {
+import be.kiop.items.Item;
+
+public abstract class Weapon implements Item{
 	private String name;
 	
 	private float damage;

@@ -11,8 +11,8 @@ public class Warrior extends Hero {
 	private static Set<Weapons> AVAILABLE_WEAPONS = Set.of(Weapons.Sword);
 
 	public Warrior(String name, float health, Weapon weapon, int level, float armor, int lives, float experience,
-			float shield) {
-		super(name, health, weapon, AVAILABLE_WEAPONS, level, armor, lives, experience);
+			float shield, String skinPath) {
+		super(name, health, weapon, AVAILABLE_WEAPONS, level, armor, lives, experience, skinPath);
 		this.shield = shield;
 	}
 
