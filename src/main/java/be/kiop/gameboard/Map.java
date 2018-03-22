@@ -26,6 +26,8 @@ public class Map extends JPanel{
 		this.height = height;
 		this.imagePath = imagePath;
 		
+		this.obstacles = new ArrayList<Obstacle>();
+		
 		try {
 			this.image = ImageIO.read(new File(imagePath));
 		}catch(IOException e) {
@@ -38,7 +40,7 @@ public class Map extends JPanel{
 	}
 	
 	public void createObstacle(int xPos, int yPos, int xSprite, int ySprite, int width, int height, String imagePath) {
-		obstacles.add(new Obstacle(xPos, yPos, xSprite, ySprite, width, height, imagePath));
+		this.obstacles.add(new Obstacle(xPos, yPos, xSprite, ySprite, width, height, imagePath));
 	}
 
 	public Image getImage() {

@@ -1,5 +1,9 @@
 package be.kiop.gameboard;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 import be.kiop.characters.heroes.Hero;
@@ -35,5 +39,26 @@ public class Game extends JFrame {
 		board.setHero(herc);
 		
 		this.setContentPane(board);
+	}
+	
+	class keyboardLst implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
